@@ -1,0 +1,15 @@
+<!-- home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to My App!</h1>
+    <p class="lead">This is a simple application using Django, HTML, CSS, and Bootstrap.</p>
+    <hr class="my-4">
+    <p>Click the buttons below to sign up or log in.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">Sign Up</a>
+    <a class="btn btn-secondary btn-lg" href="{% url 'login' %}" role="button">Login</a>
+</div>
+{% endblock %}
