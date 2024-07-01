@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import MyUserCreationForm, MyPasswordResetForm, MySetPasswordForm
 
-# Create your views here.
-
 def home(request):
     return render(request, 'user/home.html')
 
@@ -54,6 +52,7 @@ def password_reset_confirm(request, uidb64, token):
     else:
         form = MySetPasswordForm()
     return render(request, 'user/password_reset_confirm.html', {'form': form})
+
 
     
         
