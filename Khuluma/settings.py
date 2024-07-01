@@ -37,11 +37,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',            # Django Sites framework
-    'allauth',                         # django-allauth
-    'allauth.account',                 # django-allauth account management
-    'allauth.socialaccount',           # django-allauth social account management
-    'user',                            # custom user model
+    'django.contrib.sites',                                 # Django Sites framework
+    'allauth',                                              # django-allauth
+    'allauth.account',                                      # django-allauth account management
+    'allauth.socialaccount',                                # django-allauth social account management
+    'allauth.socialaccount.providers.google',               # django-allauth Google OAuth2 provider
+    'allauth.socialaccount.providers.facebook',             # django-allauth Facebook OAuth2 provider
+    'user',                                                 # custom user model
+    'phone_verify',                                         # phone verification app
 ]
 
 # Custom user model
@@ -150,13 +153,46 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Redirect URLs
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_ON_GET = True                        # Redirects to home page on logout
 
 # Allauth settings
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+#ACCOUNT_AUTHENTICATION_METHOD = 'email'
+#ACCOUNT_EMAIL_REQUIRED = True
+#ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+#ACCOUNT_USERNAME_REQUIRED = False
+#SOCIALACCOUNT_QUERY_EMAIL = True
+
+# Email settings for account verification (example configuration)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'your-email@gmail.com'
+EMAIL_HOST_PASSWORD = 'your-email-password'
+
+# Allauth settings
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_USERNAME_REQUIRED = False
-SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_UNIQUE_PHONE = True
+
+# Phone verification settings
+PHONE_VERIFICATION = {
+    'BACKEND': 'phone_verify.backends.twilio.TwilioBackend',
+    'OPTIONS': {
+        'SID': 'your-twilio-sid',
+        'SECRET': 'your-twilio-secret',
+        'FROM': 'your-twilio-phone-number',
+    },
+    'TOKEN_LENGTH': 6,
+    'MESSAGE': 'Your verification code is {}',
+    'APP_NAME': 'Khuluma',
+    'SECURITY_CODE_EXPIRATION_TIME': 3600,  # 1 hour
+}
+
 
 # Social account providers (example configuration for Google and Facebook)
 SOCIALACCOUNT_PROVIDERS = {
