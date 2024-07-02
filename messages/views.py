@@ -8,6 +8,9 @@ from rest_framework import generics, permissions
 from rest_framework.response import Response
 from .models import Message
 from .serializers import MessageSerializer
+from channels.layers import get_channel_layer
+from asgiref.sync import async_to_sync
+from django.http import JsonResponse
 
 # Create your views here.
 class MessageListView(generics.ListAPIView):
@@ -52,3 +55,49 @@ class ReadMessageView(generics.UpdateAPIView):
         instance.is_read = True
         instance.save()
         return Response({'status': 'Message read'})
+
+def send_message(request):
+    message = request.POST['message']
+    sender = request.user
+    # Save the message to the database
+    new_message = Message.objects.create(content=message, sender=sender)
+    # Send WebSocket message
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        'chat',  # Group name
+        {
+            'type': 'chat_message',
+            'message': {
+                'id': new_message.id,
+                'sender': sender.username,
+                'content': new_message.content,
+            },
+            'send_receipt': {
+                'message_id': new_message.id,
+                'status': 'sent'
+            }
+        }
+    )
+    return HttpResponse('Message sent')
+
+def mark_as_read(request, message_id):
+    message = get_object_or_404(Message, id=message_id)
+    if message.receiver != request.user:
+        return JsonResponse({'error': 'Permission denied'}, status=403)
+    
+    message.is_read = True
+    message.save()
+
+    # Send WebSocket message
+    channel_layer = get_channel_layer()
+    async_to_sync(channel_layer.group_send)(
+        'chat',  # Group name
+        {
+            'type': 'read_receipt',
+            'read_receipt': {
+                'message_id': message.id,
+                'status': 'read'
+            }
+        }
+    )
+    return JsonResponse({'status': 'Message marked as read'}, status=200)
