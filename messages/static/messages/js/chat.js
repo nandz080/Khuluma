@@ -54,9 +54,19 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function displaySendReceipt(receipt) {
         // Logic to display send receipt
+        // Find the message in the DOM and update it to show that it has been sent
+        const messageElement = document.querySelector(`#message-${receipt.message_id}`);
+        if (messageElement) {
+            messageElement.classList.add('sent');
+    }
     }
 
     function displayReadReceipt(receipt) {
         // Logic to display read receipt
+        // Find the message in the DOM and update it to show that it has been read
+        const messageElement = document.querySelector(`#message-${receipt.message_id}`);
+        if (messageElement) {
+            messageElement.classList.add('read');
+    }
     }
 });
