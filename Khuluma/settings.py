@@ -1,9 +1,10 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-gq+stf3%0w@*fv+)iw@z_28(=c#8_b8mkzjn835trvf-pfju=r'
+SECRET_KEY = os.getenv('SECRET_KEY', 'your-default-secret-key')
 DEBUG = True
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
@@ -98,8 +99,10 @@ SITE_ID = 1
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '278160520870-hfkuk7imu4le786oa920j9vgf02qi6if.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.getenv('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+
 
 LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
@@ -128,9 +131,9 @@ ACCOUNT_UNIQUE_EMAIL = True
 PHONE_VERIFICATION = {
     'BACKEND': 'phone_verify.backends.twilio.TwilioBackend',
     'OPTIONS': {
-        'SID': 'your-twilio-sid',
-        'SECRET': 'your-twilio-secret',
-        'FROM': 'your-twilio-phone-number',
+        'SID': os.getenv('TWILIO_SID'),
+        'SECRET': os.getenv('TWILIO_SECRET'),
+        'FROM': os.getenv('TWILIO_FROM'),
     },
     'TOKEN_LENGTH': 6,
     'MESSAGE': 'Your verification code is {}',
