@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'user',
     'phone_verify',
+    'messages',
 ]
 
 AUTH_USER_MODEL = 'user.User'
