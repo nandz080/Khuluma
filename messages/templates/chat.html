@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+</head>
+<body>
+    <h1>Chat Room</h1>
+    <ul id="message-list">
+        {% for message in messages %}
+            <li>{{ message.sender.username }}: {{ message.content }}</li>
+        {% endfor %}
+    </ul>
+    <input id="chat-message-input" type="text" size="100">
+    <input id="chat-message-submit" type="button" value="Send">
+    <script src="{% static 'js/chat.js' %}"></script>
+</body>
+</html>
