@@ -1,23 +1,14 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const userId = {{ request.user.id }};  // Make sure you pass the user ID from your Django template
+    const userId = {{ request.user.id }};  // Corrected syntax
+
+    const roomName = JSON.parse(document.getElementById('room-name').textContent);
     const chatSocket = new WebSocket(
-        'ws://' + window.location.host + '/ws/chat/'
+        'ws://' + window.location.host + '/ws/chat/' + roomName + '/'
     );
 
     chatSocket.onmessage = function(e) {
         const data = JSON.parse(e.data);
-        if (data.message) {
-            // Handle incoming messages
-            displayMessage(data.message);
-        }
-        if (data.send_receipt) {
-            // Handle send receiptss
-            displaySendReceipt(data.send_receipt);
-        }
-        if (data.read_receipt) {
-            // Handle read receipt
-            displayReadReceipt(data.read_receipt);
-        }
+        displayMessage(data);
     };
 
     chatSocket.onclose = function(e) {
@@ -27,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('#chat-message-input').focus();
     document.querySelector('#chat-message-input').onkeyup = function(e) {
         if (e.keyCode === 13) {  // Enter key
-            sendMessage();
+            document.querySelector('#chat-message-submit').click();
         }
     };
 
@@ -53,20 +44,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function displaySendReceipt(receipt) {
-        // Logic to display send receipt
-        // Find the message in the DOM and update it to show that it has been sent
         const messageElement = document.querySelector(`#message-${receipt.message_id}`);
         if (messageElement) {
             messageElement.classList.add('sent');
-    }
+        }
     }
 
     function displayReadReceipt(receipt) {
-        // Logic to display read receipt
-        // Find the message in the DOM and update it to show that it has been read
         const messageElement = document.querySelector(`#message-${receipt.message_id}`);
         if (messageElement) {
             messageElement.classList.add('read');
-    }
+        }
     }
 });

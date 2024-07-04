@@ -1,18 +1,18 @@
 #!/usr/bin/env python
-""" 
-Module for messages/views to handling message requests and responses
 """
-from django.shortcuts import render
-from django.shortcuts import get_object_or_404
+Module for messages/views to handle message requests and responses
+"""
+from django.shortcuts import render, get_object_or_404
 from rest_framework import generics, permissions
 from rest_framework.response import Response
-from .models import Message
-from .serializers import MessageSerializer
+from django.http import JsonResponse, HttpResponse
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
-from django.http import JsonResponse, HttpResponse
+from .models import Message
+from .serializers import MessageSerializer
 
 # Create your views here.
+
 class MessageListView(generics.ListAPIView):
     """
     List all messages for a user
@@ -101,3 +101,8 @@ def mark_as_read(request, message_id):
         }
     )
     return JsonResponse({'status': 'Message marked as read'}, status=200)
+
+def room(request, room_name):
+    return render(request, 'chat/room.html', {
+        'room_name': room_name
+    })

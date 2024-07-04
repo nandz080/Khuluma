@@ -25,6 +25,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     #path('auth/', include('social_django.urls', namespace='social')),
     path('', include('user.urls')),  # Include other user URLs
+    path('', include('my_messages.urls')),
 ]
 
 if settings.DEBUG:

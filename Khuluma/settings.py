@@ -9,7 +9,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 INSTALLED_APPS = [
-    'channels'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -24,6 +23,7 @@ INSTALLED_APPS = [
     'user',
     'phone_verify',
     'my_messages',
+    'channels',
 ]
 
 AUTH_USER_MODEL = 'user.User'
