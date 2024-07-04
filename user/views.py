@@ -1,6 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import MyUserCreationForm, MyPasswordResetForm, MySetPasswordForm
+from allauth.account.utils import complete_signup
+from allauth.account import app_settings
+
+
+
+
 
 def home(request):
     return render(request, 'user/home.html')
@@ -9,12 +15,26 @@ def signup(request):
     if request.method == 'POST':
         form = MyUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('home')
+            user = form.save(commit=False)
+            user.backend = 'django.contrib.auth.backends.ModelBackend'  # Specify the backend
+            user.save()
+            login(request, user, backend='django.contrib.auth.backends.ModelBackend')  # Use the backend parameter
+            complete_signup(request, user, app_settings.EMAIL_VERIFICATION, None)
+            return redirect('home')  # Redirect to home page after successful signup
     else:
         form = MyUserCreationForm()
     return render(request, 'user/signup.html', {'form': form})
+
+#def signup(request):
+#    if request.method == 'POST':
+#        form = MyUserCreationForm(request.POST, request.FILES)
+#        if form.is_valid():
+#            user = form.save()
+#            login(request, user)
+#            return redirect('home')
+#    else:
+#        form = MyUserCreationForm()
+#    return render(request, 'user/signup.html', {'form': form})
 
 def login_view(request):
     if request.method == 'POST':

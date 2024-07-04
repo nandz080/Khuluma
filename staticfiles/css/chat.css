@@ -1,0 +1,10 @@
+/* Add styles for send and read receipts */
+.sent {
+    font-style: italic;
+    color: gray;
+}
+
+.read {
+    font-weight: bold;
+    color: green;
+}
