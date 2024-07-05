@@ -5,8 +5,10 @@
 
 {% block content %}
 <div class="jumbotron">
-    <h1 class="display-4">Welcome to My App!</h1>
-    <p class="lead">This is a simple application using Django, HTML, CSS, and Bootstrap.</p>
+    <h1 class="display-4"> Welcome home, {{ user.username }}!</h1>
+    <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid rounded-circle my-4" width="150" height="150">
+    <p class="lead">Let's chat</p>
+
     <hr class="my-4">
     <p>Click the buttons below to sign up or log in.</p>
     <a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">Sign Up</a>

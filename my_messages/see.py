@@ -1,22 +1,33 @@
-#!/usr/bin/env python
-"""
-Module for messages/views to handle message requests and responses
-"""
 from django.shortcuts import render, get_object_or_404
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from django.http import JsonResponse, HttpResponse
 from channels.layers import get_channel_layer
 from asgiref.sync import async_to_sync
-from .models import Message, Room
+from .models import Message
 from .serializers import MessageSerializer
-from django.views.generic import TemplateView
-from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
-class ChatHomeView(TemplateView):
-    template_name = 'messages/chat_home.html'
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .models import Message, ChatRoom
+
+@login_required
+def chat_home(request):
+    # Assuming you have a ChatRoom model to handle conversations
+    chat_rooms = ChatRoom.objects.filter(participants=request.user)
+    return render(request, 'chats/chat_home.html', {'chat_rooms': chat_rooms})
+
+@login_required
+def chat_room(request, room_name):
+    chat_room = get_object_or_404(ChatRoom, name=room_name)
+    messages = Message.objects.filter(room=chat_room)
+    return render(request, 'chats/chat_room.html', {'chat_room': chat_room, 'messages': messages})
+
+
+
+
 
 
 class MessageListView(generics.ListAPIView):
@@ -101,15 +112,8 @@ def mark_as_read(request, message_id):
         }
     )
     return JsonResponse({'status': 'Message marked as read'}, status=200)
-@login_required
+
 def room(request, room_name):
-    room = get_object_or_404(Room, name=room_name)
-    messages = Message.objects.filter(room=room)
-    return render(request, 'chat/room.html', {'room': room, 'messages': messages})
-    #return render(request, 'chat/room.html', {
-    #    'room_name': room_name
-    #})
-
-def chat(request, chat_id):
-
-    return render(request, 'chat.html', {'chat_id': chat_id})
+    return render(request, 'chat/room.html', {
+        'room_name': room_name
+    })
