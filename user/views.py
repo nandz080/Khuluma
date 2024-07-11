@@ -5,9 +5,6 @@ from allauth.account.utils import complete_signup
 from allauth.account import app_settings
 
 
-
-
-
 def home(request):
     return render(request, 'user/home.html')
 
@@ -24,6 +21,7 @@ def signup(request):
     else:
         form = MyUserCreationForm()
     return render(request, 'user/signup.html', {'form': form})
+
 
 #def signup(request):
 #    if request.method == 'POST':

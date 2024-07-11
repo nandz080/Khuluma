@@ -3,9 +3,17 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm, Password
 from .models import User
 
 class MyUserCreationForm(UserCreationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter username'}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter first_name'}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter last_name'}))
+    email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Enter email'}))
+    phone_number = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter phone_number'}))
+    password1 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Enter password'}))
+    password2 = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Confirm password'}))
+    
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ('username', 'email', 'phone_number', 'profile_picture')
+        fields = ('username', 'first_name', 'last_name','email', 'phone_number', 'profile_picture')
 
     def clean_email(self):
         email = self.cleaned_data.get('email')

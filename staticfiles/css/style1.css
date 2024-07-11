@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800;900&display=swap');
+
+body {
+    font-family: "Roboto", sans-serif;
+    line-height: 1.8;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 900;
+}
+
+a {
+    text-decoration: none;
+    transition: 0.4s ease;
+    font-weight: 800;
+}
+
+section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Ensure section covers the full viewport height */
+}
+
+.bg-cover {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.navbar {
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-light .navbar-nav .nav-link.active, 
+.navbar-light .navbar-nav .show>.nav-link {
+    background: -webkit-linear-gradient(#00e0fe, #1107fe);
+}
+
+/* Define the phone container */
+.phone-container {
+    position: absolute; /* Overlays the background image */
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust positioning based on center */
+    width: 400px; /* Adjust width as needed */
+    height: 600px; /* Adjust height as needed */
+    background-color: #fff; /* Set background color for the phone */
+    border-radius: 50px 30px 30px 50px; /* Create rounded phone corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add subtle shadow for depth */
+    overflow: hidden; /* Clip any content overflowing the container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Style for the phone header */
+.phone-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px;
+}
+
+.user-profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.navbar-icons {
+    display: flex;
+    align-items: center;
+}
+
+/* Style for the h1 and p tags inside phone-container */
+.phone-title {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.phone-description {
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Media Query for Responsive Design */
+@media (max-width: 768px) {
+    .phone-container {
+        width: 100%; /* Adjust width for smaller screens */
+        height: auto; /* Adjust height for smaller screens */
+        border-radius: 0; /* Remove border radius for smaller screens */
+    }
+
+    .phone-header {
+        flex-direction: column;
+    }
+}
+
+
+  
