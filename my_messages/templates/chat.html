@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Khuluma Chats</title>
-</head>
-<body>
+{% extends "user/home.html" %}
+
+{% block content %}
     <h1>Chat with {{ chat.participant.username }}</h1>
     <ul id="message-list">
         {% for message in messages %}
@@ -18,6 +15,4 @@
     </script>
     {% load static %}
     <script src="{% static 'js/chat.js' %}"></script>
-</body>
-</html>
-
+{% endblock %}

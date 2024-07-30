@@ -1,0 +1,17 @@
+<!-- home.html -->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4"> Welcome home, {{ user.username }}!</h1>
+    <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid rounded-circle my-4" width="150" height="150">
+    <p class="lead">Let's chat</p>
+
+    <hr class="my-4">
+    <p>Click the buttons below to sign up or log in.</p>
+    <a class="btn btn-primary btn-lg" href="{% url 'signup' %}" role="button">Sign Up</a>
+    <a class="btn btn-secondary btn-lg" href="{% url 'login' %}" role="button">Login</a>
+</div>
+{% endblock %}

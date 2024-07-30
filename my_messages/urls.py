@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 from .views import MessageListView, SendMessageView, ReadMessageView, ChatHomeView
 
+app_name = 'my_messages'
 
 urlpatterns = [
     path('', ChatHomeView.as_view(), name='chat_home'),

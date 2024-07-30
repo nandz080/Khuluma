@@ -17,7 +17,7 @@ def signup(request):
             user.save()
             login(request, user, backend='django.contrib.auth.backends.ModelBackend')  # Use the backend parameter
             complete_signup(request, user, app_settings.EMAIL_VERIFICATION, None)
-            return redirect('home')  # Redirect to home page after successful signup
+            return redirect('my_messages:chat_home')  # Redirect to home page after successful signup
     else:
         form = MyUserCreationForm()
     return render(request, 'user/signup.html', {'form': form})

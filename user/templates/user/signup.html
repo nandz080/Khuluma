@@ -1,19 +1,32 @@
-<!-- templates/user/signup.html -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Sign Up</title>
-</head>
-<body>
-    <h2>Sign Up</h2>
-    {% load socialaccount %}
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign Up</button>
-    </form>
-    <a href="{% provider_login_url "google" %}">Sign up with Google</a>
-    {#<a href="{% provider_login_url "facebook" %}">Sign up with Facebook</a>#}
-</body>
-</html>
+{% extends "user/home.html" %}
+{% block navbar %}
+{{ block.super }}
+{% endblock %}
+{% block title %}Signup{% endblock %}
+
+{% block content %}
+<section id="signup" class="bg-cover hero-section" style="background-image: url('/media/profile_pics/image.png');">
+    <div class="overlay"></div>
+    <div class="phone-container">
+        <a class="navbar-brand phone-header" href="#">username.</a>
+        <div class="row">
+            <div class="col-12">
+                <h2 class="phone-header1">Signup for Khuluma!</h2>
+                <p class="phone-description" data-aos="fade-up">Join Khuluma to chat with friends and family from all over the globe.</p>
+                {% load socialaccount %}
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    
+                    <button type="submit" class="btn btn-main">Sign Up</button>
+                </form>
+                <a href="{% provider_login_url "google" %}" class="btn btn-secondary">Sign up with Google</a>
+                {#<a href="{% provider_login_url "facebook" %}" class="btn btn-secondary">Sign up with Facebook</a>#}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
 

@@ -23,7 +23,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', default='default.jpg')
-    friends = models.ManyToManyField(User, blank=True)
+    #friends = models.ManyToManyField(User, blank=True)
 
     def __str__(self):
         return self.user.username
