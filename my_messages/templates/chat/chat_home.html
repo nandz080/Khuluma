@@ -1,41 +1,49 @@
-{% extends "user/home.html" %}
+{% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-    <h1>Welcome to Khuluma Chat Home</h1>
-    
-    <h2>Your Messages</h2>
-    <ul>
-        {% for message in messages %}
-            <li><a href="{% url 'message-list' %}">{{ message.subject }}</a></li>
-        {% endfor %}
-    </ul>
+<div class="background-wrapper">
+    <div class="phone-container">
+        <h1>Welcome to Khuluma Chat Home</h1>
+        
+        <h2>Your Messages</h2>
+        <ul>
+            {% for message in messages %}
+                <li><a href="{% url 'my_messages:chat' chat_id=message.id %}">{{ message.subject }}</a></li>
+            {% endfor %}
+        </ul>
 
-    <h2>Start a New Message</h2>
-    <form action="{% url 'send-message' %}" method="post">
-        {% csrf_token %}
-        <label for="receiver">Receiver:</label>
-        <input type="text" id="receiver" name="receiver" required>
-        <label for="subject">Subject:</label>
-        <input type="text" id="subject" name="subject" required>
-        <label for="content">Content:</label>
-        <textarea id="content" name="content" rows="4" required></textarea>
-        <button type="submit">Send Message</button>
-    </form>
+        <h2>Start a New Message</h2>
+        <form action="{% url 'my_messages:send-message' %}" method="post">
+            {% csrf_token %}
+            <label for="receiver">Receiver:</label>
+            <input type="text" id="receiver" name="receiver" required>
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required>
+            <label for="content">Content:</label>
+            <textarea id="content" name="content" rows="4" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
 
-    <h2>Active Chats</h2>
-    <ul>
-        {% for chat in active_chats %}
-            <li><a href="{% url 'room' room_name=chat.room_name %}">{{ chat.room_name }}</a></li>
-        {% endfor %}
-    </ul>
+        <h2>Active Chats</h2>
+        <ul>
+            {% for chat in active_chats %}
+                <li><a href="{% url 'my_messages:room' room_name=chat.room_name %}">{{ chat.room_name }}</a></li>
+            {% endfor %}
+        </ul>
 
-    <h2>Start a New Chat</h2>
-    <form action="{% url 'room:create_room' %}" method="post">
-        {% csrf_token %}
-        <label for="room_name">Room Name:</label>
-        <input type="text" id="room_name" name="room_name" required>
-        <button type="submit">Create Chat Room</button>
-    </form>
+        <h2>Start a New Chat</h2>
+        <form action="{% url 'my_messages:create_room' %}" method="post">
+            {% csrf_token %}
+            <label for="room_name">Room Name:</label>
+            <input type="text" id="room_name" name="room_name" required>
+            <button type="submit">Create Chat Room</button>
+        </form>
 
-    <script src="{% static 'js/chat.js' %}"></script>
+        <script src="{% static 'my_messages/js/chat.js' %}"></script>
+    </div>
+</div>
 {% endblock %}
+
+
+
