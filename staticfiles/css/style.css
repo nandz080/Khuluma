@@ -147,5 +147,17 @@ img {
     border-radius: 34px;
 }
 
+/* Form styling */
+.forms {
+    font-size: 14px; /* Reduce the overall font size */
+}
 
-  
+.forms p {
+    margin-bottom: 15px; /* Add space between form fields */
+}
+
+.forms button {
+    font-size: 16px; /* Adjust button font size if needed */
+}
+
+

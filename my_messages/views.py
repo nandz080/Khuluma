@@ -34,21 +34,26 @@ class SendMessageView(generics.CreateAPIView):
         message = serializer.save(sender=self.request.user, is_sent=True)
 
         channel_layer = get_channel_layer()
-        async_to_sync(channel_layer.group_send)(
-            f'chat_{message.receiver.id}',
-            {
-                'type': 'chat_message',
-                'message': {
-                    'id': message.id,
-                    'sender': message.sender.username,
-                    'content': message.content,
-                },
-                'send_receipt': {
-                    'message_id': message.id,
-                    'status': 'sent'
+        try:
+            async_to_sync(channel_layer.group_send)(
+                f'chat_{message.receiver.id}',
+                {
+                    'type': 'chat_message',
+                    'message': {
+                        'id': message.id,
+                        'sender': message.sender.username,
+                        'content': message.content,
+                    },
+                    'send_receipt': {
+                        'message_id': message.id,
+                        'status': 'sent'
+                    }
                 }
-            }
-        )
+            )
+            # Optionally return a response
+            return Response({'message': 'Message sent successfully'})
+        except Exception as e:
+            return Response({'error': str(e)}, status=500)
 
 class ReadMessageView(generics.UpdateAPIView):
     queryset = Message.objects.all()
@@ -102,5 +107,3 @@ def room(request, room_name):
 def chat(request, chat_id):
     chat_instance = get_object_or_404(Chat, id=chat_id)
     return render(request, 'chat/chat.html', {'chat': chat_instance})
-
-
