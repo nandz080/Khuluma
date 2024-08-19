@@ -20,7 +20,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'user',
+    'user.apps.UserConfig',
     'phone_verify',
     'my_messages',
     'channels',
@@ -153,3 +153,18 @@ PHONE_VERIFICATION = {
     'SECURITY_CODE_EXPIRATION_TIME': 3600,
 }
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        '': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+    },
+}
