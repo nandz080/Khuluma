@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Friend Requests</h2>
+
+{% if friend_requests %}
+    <ul>
+        {% for request in friend_requests %}
+        <li>
+            <img src="{{ request.from_user.profile.image.url }}" alt="{{ request.from_user.username }}" width="50">
+            {{ request.from_user.username }}
+            <form action="{% url 'my_messages:accept_friend_request' request.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success">Confirm</button>
+            </form>
+            <form action="{% url 'my_messages:delete_friend_request' request.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No friend requests at the moment.</p>
+{% endif %}
+
+{% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-info">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+{% endblock %}
+

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+Profile Details
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <!-- Display the user's profile picture -->
+            <div class="card">
+                <img src="{{ profile.profile_picture.url }}" class="card-img-top img-fluid" alt="Profile Picture">
+                <div class="card-body text-center">
+                    <h4 class="card-title">{{ profile.username }}</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <h3 class="mb-3">Profile Information</h3>
+            <ul class="list-group">
+                <li class="list-group-item"><strong>First Name:</strong> {{ profile.first_name }}</li>
+                <li class="list-group-item"><strong>Last Name:</strong> {{ profile.last_name }}</li>
+                <li class="list-group-item"><strong>Email:</strong> {{ profile.user.email }}</li>
+                <li class="list-group-item"><strong>Phone Number:</strong> {{ profile.phone_number }}</li>
+            </ul>
+
+            <!-- Edit Profile Button -->
+            <div class="mt-4">
+                <a href="{% url 'user:profile_update' profile.user.id %}" class="btn btn-primary">Edit Profile</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

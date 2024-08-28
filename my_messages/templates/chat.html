@@ -1,18 +1,20 @@
-{% extends "user/home.html" %}
+{% extends 'base.html' %}
 
 {% block content %}
-    <h1>Chat with {{ chat.participant.username }}</h1>
-    <ul id="message-list">
+<div class="chat-window">
+    <div class="messages-container">
         {% for message in messages %}
-            <li>{{ message.sender.username }}: {{ message.content }}</li>
+            <div class="message-bubble {% if message.sender == user %}sent{% else %}received{% endif %}">
+                <p>{{ message.content }}</p>
+                <span class="timestamp">{{ message.timestamp|date:"H:i" }}</span>
+            </div>
         {% endfor %}
-    </ul>
-    <input id="chat-message-input" type="text" size="100">
-    <button id="chat-message-submit">Send</button>
-
-    <script>
-        var chatId = "{{ chat.id }}";
-    </script>
-    {% load static %}
-    <script src="{% static 'js/chat.js' %}"></script>
+    </div>
+    <form method="post" action="{% url 'my_messages:send_message' %}" class="send-message-form">
+        {% csrf_token %}
+        <textarea name="content" placeholder="Type your message here..."></textarea>
+        <input type="hidden" name="receiver_id" value="{{ chat.participants.exclude(id=user.id).first.id }}">
+        <button type="submit">Send</button>
+    </form>
+</div>
 {% endblock %}

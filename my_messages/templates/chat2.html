@@ -1,0 +1,18 @@
+{% extends "user/home.html" %}
+
+{% block content %}
+    <h1>Chat with {{ chat.participant.username }}</h1>
+    <ul id="message-list">
+        {% for message in messages %}
+            <li>{{ message.sender.username }}: {{ message.content }}</li>
+        {% endfor %}
+    </ul>
+    <input id="chat-message-input" type="text" size="100">
+    <button id="chat-message-submit">Send</button>
+
+    <script>
+        var chatId = "{{ chat.id }}";
+    </script>
+    {% load static %}
+    <script src="{% static 'js/chat.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<section id="home" class="bg-cover hero-section" style="background-image: url(/media/profile_pics/image.png);">
+
+    
+    <div class="phone-container">
+        <!-- Header with profile and navbar -->
+        <div class="phone-header">
+            <a class="navbar-brand" href="{% url 'user:profile_details' user.id %}">
+                {{ user.username }}.
+            </a>
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav ms-auto">
+                            <a class="nav-link" href="{% url 'user:home' %}">
+                                <img src="/media/home.webp" alt="Home" width="30" height="24">
+                            </a>
+                            <a class="nav-link" href="#">
+                                <img src="/media/notification.png" alt="Notifications" width="30" height="24">
+                            </a>
+                            <a class="nav-link" href="#">
+                                <img src="/media/contacts.webp" alt="Contacts" width="30" height="24">
+                            </a>
+                            <a class="nav-link" href="{% url 'my_messages:suggestions' %}">
+                                <img src="/media/add-friends.jpg" alt="Add Friends" width="30" height="24">
+                            </a>
+                            <a class="nav-link" href="{% url 'user:logout' %}">
+                                <img src="/media/logout.jfif" alt="Logout" width="30" height="24">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Suggestions list -->
+        <div class="row">
+            <div class="col-12">
+                <div class="suggestions-list">
+                    {% if s_friends %}
+                        <h2>Suggested Friends</h2>
+                        <div class="chat-list">
+                            {% for friend in s_friends %}
+                                <div class="chat-preview">
+                                    <a href="{% url 'my_messages:chat' friend.id %}">
+                                        <div class="chat-info">
+                                            <img src="{% if friend.profile.profile_picture %}{{ friend.profile.profile_picture.url }}{% else %}/media/default-profile.png{% endif %}" alt="{{ friend.username }}" class="profile-pic">
+
+                                            <div class="chat-details">
+                                                <strong>{{ friend.username }}</strong>
+                                                <span class="last-message">{{ friend.profile.get_description|truncatewords:10 }}</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="no-suggestions-placeholder">No suggestions available at the moment</div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Container and Header Styling */
+.phone-container {
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.phone-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic-header {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Suggestions List Styling */
+.suggestions-list {
+    padding: 20px;
+}
+
+.chat-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.chat-preview {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+}
+
+.chat-preview:hover {
+    background-color: #e1ffc7;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.chat-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-details strong {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.last-message {
+    font-size: 0.9em;
+    color: #555;
+}
+
+.no-suggestions-placeholder {
+    text-align: center;
+    font-size: 1.2em;
+    color: #888;
+    padding: 20px;
+}
+</style>
+{% endblock %}

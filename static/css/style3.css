@@ -1,0 +1,164 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;800;900&display=swap');
+
+/* Ensure the body and html take the full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", sans-serif;
+    line-height: 1.8;
+}
+
+/* Ensure the background is continuous */
+.background-wrapper {
+    min-height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+/* Section Styling */
+section {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    z-index: 2;
+    position: relative;
+    min-height: 100vh;
+}
+
+/* Header Styles */
+h1,h2,h3,h4,h5,h6 {
+    font-weight: 900;
+}
+
+/* Link Styling */
+a {
+    text-decoration: none;
+    transition: 0.4s ease;
+    font-weight: 800;
+}
+
+/* Button Styling */
+.btn {
+    padding: 14px 22px;
+    transition: all 0.3s ease;
+}
+
+.btn-main {
+    background: linear-gradient(to right,#f097d9, #fe077a);
+    border-radius: 100px;
+    border: none;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 20px;
+    margin-left: 100px;
+}
+
+.btn:hover {
+    color: #fff;
+    transform: translateY(-5px);
+}
+
+/* Navbar Styling */
+.navbar {
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .show>.nav-link {
+    background: -webkit-linear-gradient(#f097d9, #fe077a);
+}
+
+/* Hero Section Styling */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Phone Container Styling */
+.phone-container {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 600px;
+    background-color: #fff;
+    border-radius: 50px 30px 30px 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    padding: 20px;
+}
+
+/* Phone Header Styling */
+.phone-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 5px;
+    padding-bottom: 0px;
+}
+
+/* Navbar Icons Styling */
+.navbar-icons {
+    display: flex;
+    align-items: center;
+}
+
+/* Phone Title Styling */
+.phone-header1 {
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+/* Phone Description Styling */
+.phone-description {
+    margin-top: 10px;
+}
+
+/* Row Styling */
+.row {
+    padding: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px ;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .phone-container {
+        width: 100%;
+        height: auto;
+        border-radius: 0px;
+    }
+
+    .phone-header {
+        flex-direction: column;
+    }
+}
+
+/* Image Styling */
+img {
+    width: 40px;
+    height: 34px;
+    border-radius: 34px;
+}
+
+/* Form Styling */
+.forms {
+    font-size: 14px;
+}
+
+.forms p {
+    margin-bottom: 15px;
+}
+
+.forms button {
+    font-size: 16px;
+}

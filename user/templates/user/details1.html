@@ -55,3 +55,19 @@
     </div>
 </div>
 ----
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ profile.user.username }}'s Profile</title>
+</head>
+<body>
+    <h1>{{ profile.user.username }}'s Profile</h1>
+    <img src="{{ profile.profile_picture.url }}" alt="{{ profile.user.username }}'s profile picture" width="150">
+    <p>First Name: {{ profile.first_name }}</p>
+    <p>Last Name: {{ profile.last_name }}</p>
+    <p>Email: {{ profile.user.email }}</p>
+</body>
+</html>

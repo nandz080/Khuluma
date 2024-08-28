@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordResetForm, SetPasswordForm
-from .models import User
+from .models import User, Profile
+from django.forms import ModelForm
+
 
 class MyUserCreationForm(UserCreationForm):
     username = forms.CharField(
@@ -56,3 +58,8 @@ class MySetPasswordForm(SetPasswordForm):
     new_password1 = forms.CharField(label='New password', widget=forms.PasswordInput)
     new_password2 = forms.CharField(label='Confirm new password', widget=forms.PasswordInput)
 
+
+class Profileform(ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["username", "first_name", "last_name", "profile_picture"]
